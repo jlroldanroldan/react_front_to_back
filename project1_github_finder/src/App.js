@@ -1,16 +1,17 @@
 import React, { Fragment, Component } from 'react';
+import Navbar from './components/layout/Navbar';
 import './App.css';
 
 class App extends Component{
   render() {
-    const name = "John Doe";
-
+    const numbers = [1,2,3,4];
     return (
       <div className = 'App'>
-        <h1>Hello {foo()}</h1>
+        <Navbar title = {numbers}/>
       </div>
     );
   }
 }
 
 export default App;
+ 
