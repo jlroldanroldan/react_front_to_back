@@ -33,6 +33,8 @@ class App extends Component{
     clearUsers = () => this.setState({user: [], loading: false});
 
     render() {
+        const {user, loading} = this.state;
+
         return (
 
         <div className = 'App'>
@@ -41,8 +43,8 @@ class App extends Component{
                 <Search 
                     searchUsers = {this.searchUsers} 
                     clearUsers = {this.clearUsers} 
-                    showClear= {this.state.user.length > 0 ? true : false}/>
-                <User loading = {this.state.loading} user={this.state.user}/>
+                    showClear= {user.length > 0 ? true : false}/>
+                <User loading = {loading} user={user}/>
             </div>
 
         </div>
