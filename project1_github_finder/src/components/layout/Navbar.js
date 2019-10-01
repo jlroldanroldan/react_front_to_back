@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
     );
 }
 
-Navbar.defaultProprs = {
+Navbar.defaultProps = {
     title: 'Github Finder',
     icon: 'fab fa-github'
 };
