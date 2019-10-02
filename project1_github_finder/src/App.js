@@ -2,6 +2,7 @@ import React, {  Fragment, Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Navbar from './components/layout/Navbar';
 import User from './components/users/User'
+import UserIndividual, {userIndividual} from './components/users/UserIndividual'
 import Search from './components/users/Search'
 import Alert from './components/layout/Alert'
 import About from './components/pages/About'
@@ -11,6 +12,7 @@ import axios from 'axios';
 class App extends Component{
     state = {
         user: [],
+        userIndividual: {},
         loading: false,
         alert: null
     }
@@ -26,6 +28,18 @@ class App extends Component{
         this.setState({user: res.data.items, loading: false });
     };
 
+
+    // Get a single Github user
+    getUser = async (username) => {
+        this.setState({loading : true})
+
+        const res = await axios.get(`https://api.github.com/users/${username}?client_id=${
+            process.env.REACT_APP_GITHUB_CLIENT_ID
+            }&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+        );
+        this.setState({userIndividual: res.data, loading: false });
+    } 
+
     // clear users from state
     clearUsers = () => this.setState({user: [], loading: false});
 
@@ -37,7 +51,7 @@ class App extends Component{
     }
 
     render() {
-        const {user, loading} = this.state;
+        const {user, userIndividual, loading} = this.state;
 
         return (
         <Router>
@@ -63,9 +77,19 @@ class App extends Component{
                     />
                     <Route exact path = '/about' component = {About}/>
                 </Switch>
-               
+                <Router 
+                    exact 
+                    path = '/user/:login' 
+                    render = {props => (
+                        <UserIndividual 
+                            { ...props } 
+                            getUser = {this.getUser} 
+                            userIndividual = {userIndividual} 
+                            loading = {loading}
+                        />
+                    )} 
+                />
             </div>
-
         </div>
         </Router>
         );
