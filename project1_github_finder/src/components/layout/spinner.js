@@ -6,4 +6,4 @@ const Spinner = () =>
         <img src={spinner} alt = "Loading..." style={{ width: '200', margin: 'auto', display:  'block'}}/>
     </Fragment>
     
-export default spinner
+export default Spinner

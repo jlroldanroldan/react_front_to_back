@@ -1,10 +1,18 @@
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
+import Spinner from '../layout/spinner'
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'
 
 export class UserIndividual extends Component {
     componentDidMount() {
-        this.props.getUser(this.props.math.params.params.login)
+        this.props.getUser(this.props.match.params.login)
     }
 
+    static propTypes = {
+        loading: PropTypes.bool,
+        userIndividual: PropTypes.object.isRequired,
+        getUser: PropTypes.func.isRequired
+    }
 
     render() {
         const {} = this.props.userIndividual;
@@ -25,9 +33,13 @@ export class UserIndividual extends Component {
 
         const {loading} = this.props;
 
+        // if (loading) return <Spinner />;
 
-
-        return <div> {name} </div> ;
+        return <Fragment>
+            <Link to='/' className = 'btn btn-light'>
+                Back to search
+            </Link>
+        </Fragment>;
     }
 }
 
